@@ -1,6 +1,10 @@
-# PY32F0xx HAL - Rust Hardware Abstraction Layer
+# PY32F0xx HAL- **LED lighting projects**
+- **IoT sensors and controllers** 
+- **Simple automation projects**
+- **Learning embedded Rust**
+- **Cost-sensitive applications**st Hardware Abstraction Layer
 
-> 🦀 **Hardware Abstraction Layer (HAL) for PY32F0xx microcontrollers in Rust**
+> **Hardware Abstraction Layer (HAL) for PY32F0xx microcontrollers in Rust**
 
 [![Crates.io](https://img.shields.io/crates/d/py32f0xx-hal.svg)](https://crates.io/crates/py32f0xx-hal)
 [![Crates.io](https://img.shields.io/crates/v/py32f0xx-hal.svg)](https://crates.io/crates/py32f0xx-hal)
@@ -8,7 +12,7 @@
 [![Deploy Docs](https://github.com/UNIT-Electronics-MX/py32f0xx-hal/actions/workflows/deploy-docs.yml/badge.svg)](https://github.com/UNIT-Electronics-MX/py32f0xx-hal/actions/workflows/deploy-docs.yml)
 [![Documentation](https://img.shields.io/badge/docs-live-blue)](https://unit-electronics-mx.github.io/py32f0xx-hal/)
 
-## 🎯 What is this?
+## What is this?
 
 This crate provides a **Hardware Abstraction Layer (HAL)** for the PY32F0xx family of microcontrollers from Puya Semiconductor. These are **low-cost ARM Cortex-M0+ based MCUs** that offer an excellent alternative to STM32F0xx series, perfect for:
 
@@ -18,7 +22,7 @@ This crate provides a **Hardware Abstraction Layer (HAL)** for the PY32F0xx fami
 - 📟 **Learning embedded Rust**
 - 💰 **Cost-sensitive applications**
 
-## 🚀 Quick Start
+## Quick Start
 
 ### 1. Add to your `Cargo.toml`
 
@@ -62,18 +66,18 @@ fn main() -> ! {
 }
 ```
 
-## 📚 Documentation
+## Documentation
 
-📖 **[Complete Documentation & Examples](https://unit-electronics-mx.github.io/py32f0xx-hal/)**
+**[Complete Documentation & Examples](https://unit-electronics-mx.github.io/py32f0xx-hal/)**
 
 Our documentation includes:
-- 🎓 **Getting Started Guide**
-- 🛠️ **Hardware Setup**
-- 📝 **Code Examples**
-- 🔧 **Peripheral Usage**
-- 🐛 **Troubleshooting**
+- **Getting Started Guide**
+- **Hardware Setup**
+- **Code Examples**
+- **Peripheral Usage**
+- **Troubleshooting**
 
-## 🎯 Supported Devices
+## Supported Devices
 
 | Family | Variants | Flash | RAM | Features |
 |--------|----------|-------|-----|----------|
@@ -82,67 +86,67 @@ Our documentation includes:
 | **PY32F002A** | x5 | 20KB | 3KB | Ultra low-cost |
 | **PY32F002B** | x5 | 24KB | 3KB | Enhanced F002A |
 
-### ✅ **Tested & Verified**
+### **Tested & Verified**
 - **PY32F003x4** - Fully tested and working
 - **PY32F003x8** - Fully tested and working
 
-### 🧪 **Code Ready, Needs Testing**
+### **Code Ready, Needs Testing**
 - **PY32F030** series (all variants)
 - **PY32F002A** series  
 - **PY32F002B** series
 
-> 💡 **Want to help test?** We provide hardware testing support with the [UNIT Electronics CH552 Programmer](https://github.com/UNIT-Electronics-MX/unit_ch552_multiprotocol_programmer)
+> **Want to help test?** We provide hardware testing support with the [UNIT Electronics CH552 Programmer](https://github.com/UNIT-Electronics-MX/unit_ch552_multiprotocol_programmer)
 
-## 🛠️ Features & Peripherals
+## Features & Peripherals
 
-### ✅ **Currently Supported**
-- 🔌 **GPIO** - Digital I/O, interrupts, alternate functions
-- ⏰ **Timers** - PWM, input capture, one-pulse mode
-- 📡 **USART** - Serial communication
-- 🔄 **I2C** - I2C master mode
-- 📊 **ADC** - Analog-to-digital conversion
-- ⚡ **RCC** - Clock configuration and power management
+### **Currently Supported**
+- **GPIO** - Digital I/O, interrupts, alternate functions
+- **Timers** - PWM, input capture, one-pulse mode
+- **USART** - Serial communication
+- **I2C** - I2C master mode
+- **ADC** - Analog-to-digital conversion
+- **RCC** - Clock configuration and power management
 
-### 🚧 **Coming Soon**
-- 📶 **SPI** - Serial peripheral interface
-- 💾 **Flash** - Internal flash programming
-- 🔋 **Low Power** - Sleep and power management modes
+### **Coming Soon**
+- **SPI** - Serial peripheral interface
+- **Flash** - Internal flash programming
+- **Low Power** - Sleep and power management modes
 
-## 🚀 Why Choose PY32F0xx?
+## Why Choose PY32F0xx?
 
 | Advantage | Description |
 |-----------|-------------|
-| 💰 **Ultra Low Cost** | Starting at $0.10 per unit |
-| 🔄 **STM32 Compatible** | Similar API and peripherals |
-| 📦 **Small Packages** | Available in TSSOP20, SOP16, DFN8 |
-| ⚡ **Low Power** | Excellent for battery applications |
-| 🛠️ **Easy Development** | Standard ARM Cortex-M0+ tools |
+| **Ultra Low Cost** | Starting at $0.10 per unit |
+| **STM32 Compatible** | Similar API and peripherals |
+| **Small Packages** | Available in TSSOP20, SOP16, DFN8 |
+| **Low Power** | Excellent for battery applications |
+| **Easy Development** | Standard ARM Cortex-M0+ tools |
 
 ## Peripheral Support Matrix
 
 | Peripheral |    F002A   |   F002B         | F030/F003      |
 | ---------- | ---------- | --------------- |--------------- |
 | RCC        | ✅         | ✅              | ✅              |
-| GPIO       | ✅         | ✅              | ✅              |
-| INTERRUPT  | ✅         | ✅              | ✅              |
-| DMA        | N/A        | N/A             | ✅             |
-| EXTI       | ✅         | ✅              | ✅             |
-| USART      | ✅         | ✅              | ✅             |
-| I2C        | ❓         | ❓              | ❓             |
-| SPI        | ✅         | ✅              | ✅             |
-| ADC        | ✅         | ✅              | ✅             |
-| RTC        | ✅         | ✅              | ✅             |
+| GPIO       | Yes         | Yes             | Yes             |
+| INTERRUPT  | Yes         | Yes             | Yes             |
+| DMA        | N/A        | N/A             | Yes             |
+| EXTI       | Yes         | Yes             | Yes             |
+| USART      | Yes         | Yes             | Yes             |
+| I2C        | Partial     | Partial         | Partial         |
+| SPI        | Yes         | Yes             | Yes             |
+| ADC        | Yes         | Yes             | Yes             |
+| RTC        | Yes         | Yes             | Yes             |
 | FLASH      |            |                 |                |
 | COMP       |            |                 |                |
-| Timer(PWM) | ✅         | ✅              | ✅             |
-| Watchdog   | ❓         | ❓              | ❓             |
+| Timer(PWM) | Yes         | Yes             | Yes             |
+| Watchdog   | Partial     | Partial         | Partial         |
 | LED        | N/A        | N/A             | N/A            |
 
 **Legend:**
-- ✅ : Implemented and tested on PY32F003x4/x8
-- Blank : Not implemented
-- ❓ : Requires demo verification
-- N/A : Not available on this device
+- **Yes** : Implemented and tested on PY32F003x4/x8
+- **Blank** : Not implemented
+- **Partial** : Requires demo verification
+- **N/A** : Not available on this device
 
 **Note:** Peripheral implementations are tested primarily on PY32F003x4 and PY32F003x8 devices. Other device variants are supported in code but require hardware verification.
 
@@ -233,29 +237,29 @@ features = [
 - `defmt` - Better debugging output
 - `rt` - Runtime support (recommended)
 
-## 🌟 Community & Support
+## Community & Support
 
-### 📖 **Learning Resources**
-- [📘 Embedded Rust Book](https://docs.rust-embedded.org/book/) - Start here!
-- [🦀 Rust Embedded Documentation](https://docs.rust-embedded.org/)
-- [❓ FAQ](https://docs.rust-embedded.org/faq.html) - Common questions answered
+### **Learning Resources**
+- [Embedded Rust Book](https://docs.rust-embedded.org/book/) - Start here!
+- [Rust Embedded Documentation](https://docs.rust-embedded.org/)
+- [FAQ](https://docs.rust-embedded.org/faq.html) - Common questions answered
 
-### 🤝 **Get Help**
-- [💬 GitHub Discussions](https://github.com/UNIT-Electronics-MX/py32f0xx-hal/discussions) - Ask questions
-- [🐛 Issues](https://github.com/UNIT-Electronics-MX/py32f0xx-hal/issues) - Report bugs
-- [📧 Contact UNIT Electronics](https://github.com/UNIT-Electronics-MX) - Hardware support
+### **Get Help**
+- [GitHub Discussions](https://github.com/UNIT-Electronics-MX/py32f0xx-hal/discussions) - Ask questions
+- [Issues](https://github.com/UNIT-Electronics-MX/py32f0xx-hal/issues) - Report bugs
+- [Contact UNIT Electronics](https://github.com/UNIT-Electronics-MX) - Hardware support
 
-### 🏆 **Contributing**
+### **Contributing**
 We welcome contributions! Whether it's:
-- 🐛 **Bug fixes**
-- ✨ **New features** 
-- 📝 **Documentation improvements**
-- 🧪 **Hardware testing**
-- 💡 **Examples and tutorials**
+- **Bug fixes**
+- **New features** 
+- **Documentation improvements**
+- **Hardware testing**
+- **Examples and tutorials**
 
 See [CHANGELOG.md](CHANGELOG.md) for recent updates.
 
-## 📄 License
+## License
 
 Licensed under your choice of:
 - Apache License, Version 2.0 ([LICENSE-APACHE](LICENSE-APACHE))
@@ -282,10 +286,20 @@ Unless you explicitly state otherwise, any contribution intentionally submitted 
 - **Test on different PY32F0xx devices** (especially PY32F030, PY32F002A, PY32F002B variants)
 - Share testing results with the community
 
-### Testing Contributions Needed 🧪
+### Testing Contributions Needed
 
 If you have access to untested PY32 variants, your testing contributions would be valuable:
 - Use the [recommended CH552 multiprotocol programmer](https://github.com/UNIT-Electronics-MX/unit_ch552_multiprotocol_programmer)
 - Test basic examples (`blinky`, `serial_echo`, `adc_values`)
 - Report results via GitHub issues
 - Help us complete the device compatibility matrix
+
+---
+
+<div align="center">
+
+**Made with care by [UNIT Electronics](https://github.com/UNIT-Electronics-MX)**
+
+*Bringing affordable embedded development to everyone*
+
+</div>
