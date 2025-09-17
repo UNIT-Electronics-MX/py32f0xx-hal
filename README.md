@@ -6,10 +6,10 @@ py32f0xx-hal
 [![Crates.io](https://img.shields.io/crates/d/py32f0xx-hal.svg)](https://crates.io/crates/py32f0xx-hal)
 [![Crates.io](https://img.shields.io/crates/v/py32f0xx-hal.svg)](https://crates.io/crates/py32f0xx-hal)
 [![docs.rs](https://docs.rs/py32f0xx-hal/badge.svg)](https://docs.rs/py32f0xx-hal/)
-[![dependency status](https://deps.rs/repo/github/py32-rust/py32f0xx-hal/status.svg)](https://deps.rs/repo/github/py32-rust/py32f0xx-hal)
-[![Continuous integration](https://github.com/py32-rust/py32f0xx-hal/workflows/Continuous%20integration/badge.svg)](https://github.com/py32-rust/py32f0xx-hal)
+[![Deploy Docs](https://github.com/UNIT-Electronics-MX/py32f0xx-hal/actions/workflows/deploy-docs.yml/badge.svg)](https://github.com/UNIT-Electronics-MX/py32f0xx-hal/actions/workflows/deploy-docs.yml)
+[![CI](https://github.com/UNIT-Electronics-MX/py32f0xx-hal/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/UNIT-Electronics-MX/py32f0xx-hal/actions/workflows/continuous-integration.yml)
 
-[_py32f0xx-hal_](https://github.com/py32-rust/py32f0xx-hal) contains a hardware abstraction layer on top of the peripheral access API for the Puya Semiconductor PY32F0xx family of microcontrollers. These are low-cost ARM Cortex-M0+ based MCUs that offer an excellent alternative to STM32F0xx series.
+[_py32f0xx-hal_](https://github.com/UNIT-Electronics-MX/py32f0xx-hal) contains a hardware abstraction layer on top of the peripheral access API for the Puya Semiconductor PY32F0xx family of microcontrollers. These are low-cost ARM Cortex-M0+ based MCUs that offer an excellent alternative to STM32F0xx series.
 
 
 <p align="center">
@@ -88,7 +88,9 @@ Both examples are confirmed working on **PY32F003I DFN8** package at 9600 bps.
 
 ## 📚 Documentation
 
-Comprehensive documentation is available in the `docs/` directory:
+📖 **[Online Documentation](https://unit-electronics-mx.github.io/py32f0xx-hal/)** - Complete guide with examples and API reference
+
+Comprehensive documentation is also available locally in the `docs/` directory:
 
 ```bash
 # Build and view documentation locally
@@ -100,6 +102,7 @@ The documentation includes:
 - **Hardware Setup** - Wiring and connections  
 - **Working Examples** - Detailed code explanations
 - **Peripheral Drivers** - USART, GPIO, ADC, Timers, etc.
+- **API Reference** - Complete Rust documentation
 - **Troubleshooting** - Common issues and solutions
 - **CH552 Multiprotocol Programmer** - Compatible programmer setup for testing additional chip variants
 
