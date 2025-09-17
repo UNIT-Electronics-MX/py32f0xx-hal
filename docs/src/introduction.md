@@ -64,7 +64,7 @@ If you encounter issues or have questions:
 1. Check the **[Troubleshooting](./troubleshooting/serial.md)** section
 2. Look for similar examples in the **[Examples](./examples/blinky.md)** section
 3. Review the **[Peripheral Drivers](./peripherals/gpio.md)** documentation
-4. Open an issue on [GitHub](https://github.com/Cesarbautista10/py32f0xx-hal)
+4. Open an issue on [GitHub](https://github.com/UNIT-Electronics-MX/py32f0xx-hal)
 
 ## Contributing
 

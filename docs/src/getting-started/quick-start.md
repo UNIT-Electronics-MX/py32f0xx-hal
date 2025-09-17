@@ -14,7 +14,7 @@ Before you begin, ensure you have the following installed:
 ## 1. Clone the Repository
 
 ```bash
-git clone https://github.com/Cesarbautista10/py32f0xx-hal.git
+git clone https://github.com/UNIT-Electronics-MX/py32f0xx-hal.git
 cd py32f0xx-hal
 ```
 
@@ -128,4 +128,4 @@ sudo usermod -a -G dialout $USER
 
 - Check the [Troubleshooting Section](../troubleshooting/build.md)
 - Review [Verification Guide](../troubleshooting/verification.md) 
-- Open an issue on [GitHub](https://github.com/Cesarbautista10/py32f0xx-hal/issues)
+- Open an issue on [GitHub](https://github.com/UNIT-Electronics-MX/py32f0xx-hal/issues)

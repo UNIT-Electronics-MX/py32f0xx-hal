@@ -37,7 +37,7 @@ git clone https://github.com/YOUR_USERNAME/py32f0xx-hal.git
 cd py32f0xx-hal
 
 # Add upstream remote
-git remote add upstream https://github.com/Cesarbautista10/py32f0xx-hal.git
+git remote add upstream https://github.com/UNIT-Electronics-MX/py32f0xx-hal.git
 ```
 
 ### 3. Create a Feature Branch

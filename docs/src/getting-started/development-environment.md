@@ -85,7 +85,7 @@ pyocd list
 ### Clone Repository
 
 ```bash
-git clone https://github.com/Cesarbautista10/py32f0xx-hal.git
+git clone https://github.com/UNIT-Electronics-MX/py32f0xx-hal.git
 cd py32f0xx-hal
 ```
 
