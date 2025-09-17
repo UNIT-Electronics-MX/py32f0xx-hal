@@ -7,9 +7,11 @@ py32f0xx-hal
 [![Crates.io](https://img.shields.io/crates/v/py32f0xx-hal.svg)](https://crates.io/crates/py32f0xx-hal)
 [![docs.rs](https://docs.rs/py32f0xx-hal/badge.svg)](https://docs.rs/py32f0xx-hal/)
 [![Deploy Docs](https://github.com/UNIT-Electronics-MX/py32f0xx-hal/actions/workflows/deploy-docs.yml/badge.svg)](https://github.com/UNIT-Electronics-MX/py32f0xx-hal/actions/workflows/deploy-docs.yml)
-[![CI](https://github.com/UNIT-Electronics-MX/py32f0xx-hal/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/UNIT-Electronics-MX/py32f0xx-hal/actions/workflows/continuous-integration.yml)
+[![Documentation](https://img.shields.io/badge/docs-live-blue)](https://unit-electronics-mx.github.io/py32f0xx-hal/)
 
 [_py32f0xx-hal_](https://github.com/UNIT-Electronics-MX/py32f0xx-hal) contains a hardware abstraction layer on top of the peripheral access API for the Puya Semiconductor PY32F0xx family of microcontrollers. These are low-cost ARM Cortex-M0+ based MCUs that offer an excellent alternative to STM32F0xx series.
+
+📖 **[View Complete Documentation](https://unit-electronics-mx.github.io/py32f0xx-hal/)**
 
 
 <p align="center">
