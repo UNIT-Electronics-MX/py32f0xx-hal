@@ -4,3 +4,9 @@
 Cargo.lock
 *.txt
 .vscode/launch.json
+build/
+Build/
+
+# Documentation build directory
+docs/book/
+venv/

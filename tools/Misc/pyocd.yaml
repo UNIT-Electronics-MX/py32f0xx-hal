@@ -1,0 +1,35 @@
+pack:
+  - Puya.PY32.pack
+
+# PyOCD configuration for PY32F0xx series
+# This file should be used with pyocd from the project directory
+
+# Targets configuration for different PY32F0xx variants
+targets:
+  py32f002ax5:
+    part_number: PY32F002Ax5
+  py32f002bx5:
+    part_number: PY32F002Bx5
+  py32f003x4:
+    part_number: PY32F003x4
+  py32f003x6:
+    part_number: PY32F003x6
+  py32f003x8:
+    part_number: PY32F003x8
+  py32f030x6:
+    part_number: PY32F030x6
+  py32f030x8:
+    part_number: PY32F030x8
+  py32f072xb:
+    part_number: PY32F072xB
+
+# Common settings
+connect_mode: attach
+reset_type: hw
+auto_unlock: true
+frequency: 4000000
+
+# GDB server settings
+gdbserver:
+  port: 3333
+  telnet_port: 4444

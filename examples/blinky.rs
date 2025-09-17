@@ -4,28 +4,39 @@
 use panic_halt as _;
 
 use py32f0xx_hal as hal;
-
-use crate::hal::{pac, prelude::*};
-
+use crate::hal::{pac, prelude::*, rcc::{RccExt, HSIFreq}};
 use cortex_m_rt::entry;
 
 #[entry]
 fn main() -> ! {
-    let p = pac::Peripherals::take().unwrap();
+    let mut p = pac::Peripherals::take().unwrap();
 
-    let gpioa = p.GPIOA.split();
+    // Configure RCC for 24MHz HSI (equivalent to your C code)
+    let _rcc = p.RCC
+        .configure()
+        .hsi(HSIFreq::Freq24mhz)  // Set HSI to 24MHz like in your C code
+        .sysclk(24.MHz())         // Set system clock to 24MHz
+        .freeze(&mut p.FLASH);
 
-    // (Re-)configure PA5 as output
-    let mut led = gpioa.pa5.into_push_pull_output();
+    // Initialize GPIO B
+    let gpiob = p.GPIOB.split();
+
+    // Configure PB5 as output
+    let mut led = gpiob.pb5.into_push_pull_output();
 
     loop {
-        // Turn PA5 on a million times in a row
-        for _ in 0..1_000_000 {
-            led.set_high();
+        // Turn LED on
+        led.set_high();
+        // Wait (now properly calibrated for 24MHz)
+        for _ in 0..1_200_000 {  // Adjusted for 24MHz
+            cortex_m::asm::nop();
         }
-        // Then turn PA5 off a million times in a row
-        for _ in 0..1_000_000 {
-            led.set_low();
+        
+        // Turn LED off  
+        led.set_low();
+        // Wait (now properly calibrated for 24MHz)
+        for _ in 0..1_200_000 {  // Adjusted for 24MHz
+            cortex_m::asm::nop();
         }
     }
 }

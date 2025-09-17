@@ -1,5 +1,5 @@
 [target.thumbv6m-none-eabi]
-runner = "probe-rs run --chip PY32F002Ax5"
+runner = "probe-rs run --chip PY32F003x4"
 rustflags = [
   "-C",
   "link-arg=-Tlink.x",
