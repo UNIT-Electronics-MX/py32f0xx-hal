@@ -63,8 +63,11 @@ jobs:
         
     - name: Verify project builds
       run: |
-        # Check that the HAL library builds
-        cargo check --all-features --target thumbv6m-none-eabi
+        # Check that the HAL library builds with different device features
+        cargo check --features py32f030xx4 --target thumbv6m-none-eabi
+        cargo check --features py32f003xx4 --target thumbv6m-none-eabi
+        cargo check --features py32f002ax5 --target thumbv6m-none-eabi
+        cargo check --features py32f002bx5 --target thumbv6m-none-eabi
         
     - name: Build documentation book
       run: |
@@ -73,7 +76,7 @@ jobs:
         
     - name: Generate Rust docs
       run: |
-        cargo doc --no-deps --all-features --target thumbv6m-none-eabi
+        cargo doc --no-deps --features py32f030xx4 --target thumbv6m-none-eabi
         
     - name: Prepare GitHub Pages content
       run: |

@@ -55,11 +55,11 @@
 
 #[cfg(feature = "py32f002a")]
 pub use py32f0::py32f002a as pac;
-#[cfg(feature = "py32f002b")]
+#[cfg(all(feature = "py32f002b", not(feature = "py32f002a")))]
 pub use py32f0::py32f002b as pac;
-#[cfg(feature = "py32f003")]
+#[cfg(all(feature = "py32f003", not(any(feature = "py32f002a", feature = "py32f002b"))))]
 pub use py32f0::py32f003 as pac;
-#[cfg(feature = "py32f030")]
+#[cfg(all(feature = "py32f030", not(any(feature = "py32f002a", feature = "py32f002b", feature = "py32f003"))))]
 pub use py32f0::py32f030 as pac;
 
 #[cfg(feature = "device-selected")]

@@ -290,7 +290,7 @@ mod inner {
         while !rcc.cr.read().hserdy().bit_is_set() {}
     }
 
-    #[cfg(feature = "py32f002b")]
+    #[cfg(all(feature = "py32f002b", not(any(feature = "py32f030", feature = "py32f003", feature = "py32f002a"))))]
     fn hse_enable(rcc: &mut RCC) {
         // PY32F002B HSE only support the bypass mode
         rcc.cr.modify(|_, w| w.hsebyp().bypassed());
@@ -339,7 +339,7 @@ mod inner {
             .modify(|_, w| unsafe { w.ppre().bits(ppre_bits).hpre().bits(hpre_bits).sw().pll() });
     }
 
-    #[cfg(any(feature = "py32f003", feature = "py32f002a", feature = "py32f002b"))]
+    #[cfg(not(feature = "py32f030"))]
     #[inline(always)]
     pub(super) fn enable_pll(
         _rcc: &mut RCC,
