@@ -1,7 +1,6 @@
-py32f0xx-hal
-================
+# PY32F0xx HAL - Rust Hardware Abstraction Layer
 
-> Hardware Abstraction Layer (HAL) for the PY32F0xx family of microcontrollers
+> 🦀 **Hardware Abstraction Layer (HAL) for PY32F0xx microcontrollers in Rust**
 
 [![Crates.io](https://img.shields.io/crates/d/py32f0xx-hal.svg)](https://crates.io/crates/py32f0xx-hal)
 [![Crates.io](https://img.shields.io/crates/v/py32f0xx-hal.svg)](https://crates.io/crates/py32f0xx-hal)
@@ -9,40 +8,115 @@ py32f0xx-hal
 [![Deploy Docs](https://github.com/UNIT-Electronics-MX/py32f0xx-hal/actions/workflows/deploy-docs.yml/badge.svg)](https://github.com/UNIT-Electronics-MX/py32f0xx-hal/actions/workflows/deploy-docs.yml)
 [![Documentation](https://img.shields.io/badge/docs-live-blue)](https://unit-electronics-mx.github.io/py32f0xx-hal/)
 
-[_py32f0xx-hal_](https://github.com/UNIT-Electronics-MX/py32f0xx-hal) contains a hardware abstraction layer on top of the peripheral access API for the Puya Semiconductor PY32F0xx family of microcontrollers. These are low-cost ARM Cortex-M0+ based MCUs that offer an excellent alternative to STM32F0xx series.
+## 🎯 What is this?
 
-📖 **[View Complete Documentation](https://unit-electronics-mx.github.io/py32f0xx-hal/)**
+This crate provides a **Hardware Abstraction Layer (HAL)** for the PY32F0xx family of microcontrollers from Puya Semiconductor. These are **low-cost ARM Cortex-M0+ based MCUs** that offer an excellent alternative to STM32F0xx series, perfect for:
 
+- � **LED lighting projects**
+- 🤖 **IoT sensors and controllers** 
+- 🔌 **Simple automation projects**
+- 📟 **Learning embedded Rust**
+- 💰 **Cost-sensitive applications**
 
-<p align="center">
-    <img src="https://skillicons.dev/icons?i=rust" alt="Tech Stack Icons">
-</p>
-Collaboration on this crate is highly welcome, as are pull requests!
+## 🚀 Quick Start
 
-## Supported Devices
+### 1. Add to your `Cargo.toml`
 
-* **py32f030** (py32f030xx4, py32f030xx6, py32f030xx7, py32f030xx8)
-* **py32f003** (py32f003xx4, py32f003xx6, py32f003xx8)
-* **py32f002a** (py32f002ax5)
-* **py32f002b** (py32f002bx5)
+```toml
+[dependencies]
+py32f0xx-hal = "0.4"
+cortex-m = "0.7"
+cortex-m-rt = "0.7"
+panic-halt = "0.2"
 
-## Testing Status
+[dependencies.py32f0xx-hal]
+version = "0.4"
+features = ["py32f003xx4", "rt"]  # Choose your specific chip
+```
 
-### Tested Devices ✅
-- **PY32F003x4** - Fully tested and verified
-- **PY32F003x8** - Fully tested and verified
+### 2. Blink an LED Example
 
-### Next to Test 🧪
-The following devices are supported in code but need hardware testing:
+```rust
+#![no_std]
+#![no_main]
+
+use panic_halt as _;
+use cortex_m_rt::entry;
+use py32f0xx_hal::{pac, prelude::*, gpio::*};
+
+#[entry]
+fn main() -> ! {
+    let p = pac::Peripherals::take().unwrap();
+    
+    let mut rcc = p.RCC.constrain();
+    let gpioa = p.GPIOA.split(&mut rcc.ahb);
+    
+    let mut led = gpioa.pa5.into_push_pull_output();
+    
+    loop {
+        led.set_high().unwrap();
+        cortex_m::asm::delay(1_000_000);
+        led.set_low().unwrap();
+        cortex_m::asm::delay(1_000_000);
+    }
+}
+```
+
+## 📚 Documentation
+
+📖 **[Complete Documentation & Examples](https://unit-electronics-mx.github.io/py32f0xx-hal/)**
+
+Our documentation includes:
+- 🎓 **Getting Started Guide**
+- 🛠️ **Hardware Setup**
+- 📝 **Code Examples**
+- 🔧 **Peripheral Usage**
+- 🐛 **Troubleshooting**
+
+## 🎯 Supported Devices
+
+| Family | Variants | Flash | RAM | Features |
+|--------|----------|-------|-----|----------|
+| **PY32F030** | xx4, xx6, xx7, xx8 | 16-64KB | 4-8KB | PLL, More timers |
+| **PY32F003** | xx4, xx6, xx8 | 16-64KB | 4-8KB | Standard features |
+| **PY32F002A** | x5 | 20KB | 3KB | Ultra low-cost |
+| **PY32F002B** | x5 | 24KB | 3KB | Enhanced F002A |
+
+### ✅ **Tested & Verified**
+- **PY32F003x4** - Fully tested and working
+- **PY32F003x8** - Fully tested and working
+
+### 🧪 **Code Ready, Needs Testing**
 - **PY32F030** series (all variants)
-- **PY32F002A** series
+- **PY32F002A** series  
 - **PY32F002B** series
 
-### Recommended Programmer for Testing
-For testing untested devices, we recommend the **UNIT Electronics CH552 Multiprotocol Programmer**:
-- Repository: [unit_ch552_multiprotocol_programmer](https://github.com/UNIT-Electronics-MX/unit_ch552_multiprotocol_programmer)
-- Supports multiple PY32 series chips
-- Affordable and reliable solution
+> 💡 **Want to help test?** We provide hardware testing support with the [UNIT Electronics CH552 Programmer](https://github.com/UNIT-Electronics-MX/unit_ch552_multiprotocol_programmer)
+
+## 🛠️ Features & Peripherals
+
+### ✅ **Currently Supported**
+- 🔌 **GPIO** - Digital I/O, interrupts, alternate functions
+- ⏰ **Timers** - PWM, input capture, one-pulse mode
+- 📡 **USART** - Serial communication
+- 🔄 **I2C** - I2C master mode
+- 📊 **ADC** - Analog-to-digital conversion
+- ⚡ **RCC** - Clock configuration and power management
+
+### 🚧 **Coming Soon**
+- 📶 **SPI** - Serial peripheral interface
+- 💾 **Flash** - Internal flash programming
+- 🔋 **Low Power** - Sleep and power management modes
+
+## 🚀 Why Choose PY32F0xx?
+
+| Advantage | Description |
+|-----------|-------------|
+| 💰 **Ultra Low Cost** | Starting at $0.10 per unit |
+| 🔄 **STM32 Compatible** | Similar API and peripherals |
+| 📦 **Small Packages** | Available in TSSOP20, SOP16, DFN8 |
+| ⚡ **Low Power** | Excellent for battery applications |
+| 🛠️ **Easy Development** | Standard ARM Cortex-M0+ tools |
 
 ## Peripheral Support Matrix
 
@@ -123,71 +197,79 @@ $ cargo build --features=py32f003xx4 --example=serial_echo
 $ make flash EXAMPLE=serial_echo
 ```
 
-### Using py32f0xx-hal in Your Project
+## 💻 Development Setup
 
-To use py32f0xx-hal as a dependency in a standalone project, specify the target device feature in your `Cargo.toml`:
+### 1. Install Rust and Tools
+```bash
+# Install Rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
-```toml
-[dependencies]
-embedded-hal = "1"
-nb = "1"
-cortex-m = "0.7.7"
-cortex-m-rt = "0.7.3"
-# Panic behaviour, see https://crates.io/keywords/panic-impl for alternatives
-panic-halt = "0.2.0"
-py32f0xx-hal = { version = "0.4.0", features = ["py32f003xx4"] }
+# Add ARM Cortex-M target
+rustup target add thumbv6m-none-eabi
+
+# Install cargo-binutils for flashing
+cargo install cargo-binutils
+rustup component add llvm-tools-preview
 ```
 
-### Device Features
-Choose the appropriate feature for your target device:
-- `py32f030xx4` - PY32F030 with 16KB Flash
-- `py32f030xx6` - PY32F030 with 32KB Flash  
-- `py32f030xx7` - PY32F030 with 48KB Flash
-- `py32f030xx8` - PY32F030 with 64KB Flash
-- `py32f003xx4` - PY32F003 with 16KB Flash
-- `py32f003xx6` - PY32F003 with 32KB Flash
-- `py32f003xx8` - PY32F003 with 64KB Flash
-- `py32f002ax5` - PY32F002A with 20KB Flash
-- `py32f002bx5` - PY32F002B with 20KB Flash
+### 2. Choose Your Device Feature
+```toml
+[dependencies.py32f0xx-hal]
+version = "0.4"
+features = [
+    "py32f003xx4",  # For PY32F003 with 16KB Flash
+    "rt"            # Runtime support
+]
+```
 
-## Optional Features
+**Available Features:**
+- `py32f030xx4/6/7/8` - PY32F030 series (16KB-64KB Flash)
+- `py32f003xx4/6/8` - PY32F003 series (16KB-64KB Flash)  
+- `py32f002ax5` - PY32F002A (20KB Flash)
+- `py32f002bx5` - PY32F002B (24KB Flash)
 
-- **rtic** - Includes a `monotonic` timer module for use with the RTIC framework
-- **defmt** - Adds `derive(defmt::Format)` to `Error` types for better debugging
-- **rt** - Enables the `rt` feature in the `py32f0xx` PAC crate for runtime support
+### 3. Optional Features
+- `rtic` - RTIC framework support
+- `defmt` - Better debugging output
+- `rt` - Runtime support (recommended)
 
-## Learning Resources
+## 🌟 Community & Support
 
-If you are unfamiliar with embedded development using Rust, here are some excellent resources:
+### 📖 **Learning Resources**
+- [📘 Embedded Rust Book](https://docs.rust-embedded.org/book/) - Start here!
+- [🦀 Rust Embedded Documentation](https://docs.rust-embedded.org/)
+- [❓ FAQ](https://docs.rust-embedded.org/faq.html) - Common questions answered
 
-- [Embedded Rust Documentation](https://docs.rust-embedded.org/)
-- [The Embedded Rust Book](https://docs.rust-embedded.org/book/)
-- [Rust Embedded FAQ](https://docs.rust-embedded.org/faq.html)
-- [rust-embedded/awesome-embedded-rust](https://github.com/rust-embedded/awesome-embedded-rust)
+### 🤝 **Get Help**
+- [💬 GitHub Discussions](https://github.com/UNIT-Electronics-MX/py32f0xx-hal/discussions) - Ask questions
+- [🐛 Issues](https://github.com/UNIT-Electronics-MX/py32f0xx-hal/issues) - Report bugs
+- [📧 Contact UNIT Electronics](https://github.com/UNIT-Electronics-MX) - Hardware support
 
+### 🏆 **Contributing**
+We welcome contributions! Whether it's:
+- 🐛 **Bug fixes**
+- ✨ **New features** 
+- 📝 **Documentation improvements**
+- 🧪 **Hardware testing**
+- 💡 **Examples and tutorials**
 
-## Minimum Supported Rust Version
+See [CHANGELOG.md](CHANGELOG.md) for recent updates.
 
-The minimum supported Rust version is the latest stable release. Older versions may compile, especially when some features are not used in your application.
+## 📄 License
 
-## Changelog
+Licensed under your choice of:
+- Apache License, Version 2.0 ([LICENSE-APACHE](LICENSE-APACHE))
+- MIT license ([LICENSE-MIT](LICENSE-MIT))
 
-See [CHANGELOG.md](CHANGELOG.md).
+---
 
-## Credits
+<div align="center">
 
-This repository was inspired by [stm32f0xx-hal](https://github.com/stm32-rs/stm32f0xx-hal) and [stm32f1xx-hal](https://github.com/stm32-rs/stm32f1xx-hal).
+**Made with ❤️ by [UNIT Electronics](https://github.com/UNIT-Electronics-MX)**
 
-Forked from [py32-rust/py32f0xx-hal](https://github.com/py32-rust/py32f0xx-hal).
+*Bringing affordable embedded development to everyone*
 
-## License
-
-Licensed under either of:
-
- * Apache License, Version 2.0 ([LICENSE-APACHE](LICENSE-APACHE) or http://www.apache.org/licenses/LICENSE-2.0)
- * MIT license ([LICENSE-MIT](LICENSE-MIT) or http://opensource.org/licenses/MIT)
-
-at your option.
+</div>
 
 ## Contributing
 

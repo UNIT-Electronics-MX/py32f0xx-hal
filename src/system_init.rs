@@ -9,8 +9,9 @@ use crate::rcc::{RccExt, HSIFreq, Rcc};
 use crate::gpio::{
     gpioa::Parts as GpioAParts, 
     gpiob::Parts as GpioBParts,
-    gpiof::Parts as GpioFParts,
 };
+#[cfg(any(feature = "py32f030", feature = "py32f003"))]
+use crate::gpio::gpiof::Parts as GpioFParts;
 
 /// Configuración del reloj del sistema
 pub struct SystemClockConfig {
@@ -37,7 +38,8 @@ pub struct SystemInit {
     pub gpioa: GpioAParts,
     /// GPIO Port B
     pub gpiob: GpioBParts,
-    /// GPIO Port F
+    /// GPIO Port F (solo disponible en py32f030 y py32f003)
+    #[cfg(any(feature = "py32f030", feature = "py32f003"))]
     pub gpiof: GpioFParts,
 }
 
@@ -85,12 +87,14 @@ impl SystemInit {
         // Inicializar todos los GPIO disponibles
         let gpioa = p.GPIOA.split();
         let gpiob = p.GPIOB.split();
+        #[cfg(any(feature = "py32f030", feature = "py32f003"))]
         let gpiof = p.GPIOF.split();
 
         SystemInit {
             rcc,
             gpioa,
             gpiob,
+            #[cfg(any(feature = "py32f030", feature = "py32f003"))]
             gpiof,
         }
     }
