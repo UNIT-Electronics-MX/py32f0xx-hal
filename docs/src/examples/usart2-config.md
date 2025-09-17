@@ -1,0 +1,1 @@
+# USART2 Configuration

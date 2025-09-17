@@ -1,0 +1,48 @@
+[book]
+authors = ["PY32F0xx-HAL Contributors"]
+language = "en"
+multilingual = false
+src = "src"
+title = "PY32F0xx HAL Documentation"
+description = "Hardware Abstraction Layer documentation for PY32F0xx microcontrollers"
+
+[preprocessor.index]
+
+[build]
+build-dir = "book"
+create-missing = true
+
+[output.html]
+default-theme = "light"
+preferred-dark-theme = "navy"
+curly-quotes = true
+mathjax-support = false
+copy-fonts = true
+google-analytics = ""
+additional-css = []
+additional-js = []
+no-section-label = false
+git-repository-url = "https://github.com/Cesarbautista10/py32f0xx-hal"
+git-repository-icon = "fa-github"
+edit-url-template = "https://github.com/Cesarbautista10/py32f0xx-hal/edit/main/docs/src/{path}"
+site-url = "/py32f0xx-hal/"
+cname = ""
+input-404 = ""
+
+[output.html.search]
+enable = true
+limit-results = 30
+teaser-word-count = 30
+use-boolean-and = true
+boost-title = 2
+boost-hierarchy = 1
+boost-paragraph = 1
+expand = true
+heading-split-level = 3
+
+[output.html.fold]
+enable = true
+level = 1
+
+[output.html.print]
+enable = true
