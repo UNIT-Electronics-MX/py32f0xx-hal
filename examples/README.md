@@ -1,74 +1,76 @@
-# 📁 Ejemplos del Proyecto PY32F0xx-HAL
+# 📁 PY32F0xx-HAL Project Examples
 
-## 🚀 Ejemplos Principales (Usar estos)
+## 🚀 Main Examples (Use These)
 
-### **Básicos**
-- **`blinky_hal_simple.rs`** - Ejemplo básico de LED parpadeante con inicialización automática
-- **`gpio_easy_swap.rs`** - Demostración de intercambio fácil de puertos GPIO  
-- **`gpio_multi_port_demo.rs`** - Demo avanzado con múltiples puertos a la vez
+### **Basic**
+- **`blinky_hal_simple.rs`** - Basic blinking LED example with automatic initialization
+- **`gpio_easy_swap.rs`** - Easy GPIO port swapping demonstration  
+- **`gpio_multi_port_demo.rs`** - Advanced demo with multiple ports at once
 
-### **Originales del HAL**
-- **`blinky.rs`** - Ejemplo original de blinky del proyecto
-- **`blinky_delay.rs`** - Blinky con delays precisos
-- **`blinky_timer.rs`** - Blinky usando timers
+### **Original HAL Examples**
+- **`blinky.rs`** - Original blinky example from the project
+- **`blinky_delay.rs`** - Blinky with precise delays
+- **`blinky_timer.rs`** - Blinky using timers
 
-### **Periféricos**
-- **`adc_values.rs`** - Lectura de valores ADC
-- **`serial_echo.rs`** - Echo serial
-- **`i2c_find_address.rs`** - Escaneo de dispositivos I2C
-- **`spi_hal_apa102c.rs`** - Control de LEDs APA102C via SPI
-- **`pwm.rs`** - Generación de PWM
+### **Peripherals**
+- **`adc_values.rs`** - Reading ADC values
+- **`serial_echo.rs`** - Serial echo
+- **`i2c_slave_demo.rs`** - I2C slave communication with serial debug
+- **`i2c_master/`** - I2C master test scripts for ESP32-H2
+- **`spi_hal_apa102c.rs`** - APA102C LED control via SPI
+- **`pwm.rs`** - PWM generation
 
-## 🧪 Archivos de Prueba y Desarrollo (`testing/`)
+## 🧪 Test and Development Files (`testing/`)
 
-Los siguientes archivos están en `examples/testing/` para mantener el directorio principal limpio:
+The following files are in `examples/testing/` to keep the main directory clean:
 
-- `blinky_pa1.rs` - Prueba específica para PA1
-- `blinky_working.rs` - Versión de trabajo durante desarrollo  
-- `clock_gpio_test.rs` - Pruebas de configuración de reloj
-- `diagnostic_direct.rs` - Diagnósticos directos de hardware
-- `direct_gpio_*.rs` - Manipulación directa de registros GPIO
-- `gpio_test_*.rs` - Varias pruebas de GPIO
-- `led_on.rs` - Prueba simple de encendido de LED
-- `test_multiple_pins.rs` - Pruebas con múltiples pines
+- `blinky_pa1.rs` - Specific test for PA1
+- `blinky_working.rs` - Working version during development  
+- `clock_gpio_test.rs` - Clock configuration tests
+- `diagnostic_direct.rs` - Direct hardware diagnostics
+- `direct_gpio_*.rs` - Direct GPIO register manipulation
+- `gpio_test_*.rs` - Various GPIO tests
+- `led_on.rs` - Simple LED on test
+- `test_multiple_pins.rs` - Tests with multiple pins
 
-## 🛠️ Sistema de Inicialización Generalizado
+## 🛠️ Generalized Initialization System
 
-Todos los ejemplos nuevos utilizan el sistema de inicialización automática:
+All new examples use the automatic initialization system:
 
 ```rust
 use py32f0xx_hal::system_init::SystemInit;
 
-// Una línea inicializa todo el sistema
+// One line initializes the whole system
 let sys = SystemInit::init();
 
-// Intercambiar puertos es fácil - solo cambiar esta línea:
+// Swapping ports is easy - just change this line:
 let mut pin = sys.gpiob.pb5.into_push_pull_output();
 ```
 
-## 📋 Comandos Útiles
+## 📋 Useful Commands
 
 ```bash
-# Compilar ejemplo
+# Build example
 make build EXAMPLE=blinky_hal_simple
 
-# Compilar y flashear (con reset automático)  
+# Build and flash (with automatic reset)  
 make flash EXAMPLE=gpio_easy_swap
 
-# Solo reset por software
+# Software reset only
 make reset
 
-# Limpiar archivos de build
+# Clean build files
 make clean
 
-# Ver configuración actual
+# View current configuration
 make info
 ```
 
-## 🎯 Configuración Automática Incluida
+## 🎯 Automatic Configuration Included
 
-✅ Reloj del sistema (HSI 8MHz por defecto, 24MHz disponible)  
-✅ Todos los puertos GPIO inicializados (A, B, F)  
-✅ Reset automático después de flashear  
-✅ PyOCD desde entorno virtual  
-✅ Configuración correcta para PY32F003x4
+✅ System clock (HSI 8MHz by default, 24MHz available)  
+✅ All GPIO ports initialized (A, B, F)  
+✅ Automatic reset after flashing  
+✅ PyOCD from virtual environment  
+✅ Correct configuration for PY32F003x4
+

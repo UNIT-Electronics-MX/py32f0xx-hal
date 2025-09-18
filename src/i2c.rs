@@ -91,12 +91,14 @@ i2c_pins! {
     I2C => {
         scl => [
             gpioa::PA3<Alternate<AF12>>,
+            gpioa::PA10<Alternate<AF12>>,  // PA10 with AF12 for SCL (from pinout table)
             gpiob::PB6<Alternate<AF6>>,
             gpiof::PF1<Alternate<AF12>>
         ],
         sda => [
             gpioa::PA2<Alternate<AF12>>,
             gpioa::PA7<Alternate<AF12>>,
+            gpioa::PA10<Alternate<AF6>>,   // PA10 with AF6 for SDA (from pinout table)
             gpioa::PA12<Alternate<AF6>>,
             gpiob::PB7<Alternate<AF6>>,
             gpiof::PF0<Alternate<AF12>>

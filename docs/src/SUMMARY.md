@@ -12,9 +12,7 @@
 # Device Guides
 
 - [PY32F003 Quick Guide](./devices/py32f003-guide.md)
-- [DFN8 Package Guide](./devices/dfn8-guide.md)
-- [GPIO Port Configuration](./devices/gpio-port-guide.md)
-- [Clock Configuration](./devices/clock-config.md)
+
 
 # Examples
 
@@ -23,6 +21,7 @@
   - [Serial Echo Example](./examples/serial-echo.md)
   - [Serial ADC Example](./examples/serial-adc.md)
   - [USART2 Configuration](./examples/usart2-config.md)
+- [I2C Communication](./examples/i2c-slave.md)
 - [ADC Examples](./examples/adc.md)
 - [PWM Examples](./examples/pwm.md)
 - [Timer Examples](./examples/timers.md)
@@ -41,6 +40,9 @@
 # Development Tools
 
 - [Multi-Protocol Programmer](./tools/multiprotocol-programmer.md)
+- [OpenOCD Support](./tools/openocd.md)
+- [VS Code Configuration](./tools/vscode-configuration.md)
+- [VS Code Debugging](./tools/vscode-debugging.md)
 
 # Troubleshooting
 
