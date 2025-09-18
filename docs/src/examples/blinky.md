@@ -82,10 +82,13 @@ fn main() -> ! {
 
 ```bash
 # Build the example
-make build EXAMPLE=blinky MCU_TYPE=py32f003xx4
+# Simple way
+make blinky           # Build only
+make flash-blinky     # Build and flash
 
-# Flash to device
-make flash EXAMPLE=blinky MCU_TYPE=py32f003xx4
+# Traditional way
+make build EXAMPLE=blinky MCU_TYPE=PY32F003x4
+make flash EXAMPLE=blinky MCU_TYPE=PY32F003x4
 ```
 
 ### Using Cargo

@@ -1,0 +1,65 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build Blinky",
+            "type": "shell",
+            "command": "make",
+            "args": ["blinky"],
+            "group": "build",
+            "problemMatcher": "$rustc",
+            "detail": "Build blinky example in release mode"
+        },
+        {
+            "label": "Flash Blinky",
+            "type": "shell",
+            "command": "make",
+            "args": ["flash-blinky"],
+            "group": "build",
+            "dependsOn": "Build Blinky",
+            "detail": "Build and flash blinky example"
+        },
+        {
+            "label": "Debug Build Blinky",
+            "type": "shell",
+            "command": "make",
+            "args": ["debug-blinky"],
+            "group": "build",
+            "problemMatcher": "$rustc",
+            "detail": "Build blinky example in debug mode"
+        },
+        {
+            "label": "Build Serial Echo",
+            "type": "shell",
+            "command": "make",
+            "args": ["serial_echo"],
+            "group": "build",
+            "problemMatcher": "$rustc",
+            "detail": "Build serial_echo example"
+        },
+        {
+            "label": "Flash Serial Echo",
+            "type": "shell",
+            "command": "make",
+            "args": ["flash-serial_echo"],
+            "group": "build",
+            "detail": "Build and flash serial_echo example"
+        },
+        {
+            "label": "Clean Build",
+            "type": "shell",
+            "command": "make",
+            "args": ["clean"],
+            "group": "build",
+            "detail": "Clean build artifacts"
+        },
+        {
+            "label": "Build Documentation",
+            "type": "shell",
+            "command": "make",
+            "args": ["docs"],
+            "group": "build",
+            "detail": "Build mdBook documentation"
+        }
+    ]
+}

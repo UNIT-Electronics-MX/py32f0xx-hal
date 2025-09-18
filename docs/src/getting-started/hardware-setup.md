@@ -7,7 +7,7 @@ This guide covers the hardware setup requirements for PY32F0xx development, incl
 ### Minimum Requirements
 
 1. **PY32F0xx Microcontroller** - Any supported variant
-2. **SWD Programmer** - ST-Link v2, J-Link, or compatible
+2. **SWD Programmer** - Multiprotocol Programmer, ST-Link v2, J-Link, or compatible
 3. **Power Supply** - 3.3V (or 1.7V-5.5V depending on variant)
 4. **Breadboard/PCB** - For prototyping connections
 
@@ -35,13 +35,13 @@ All PY32F0xx devices support Serial Wire Debug (SWD) for programming and debuggi
 ### Wiring Example (ST-Link v2)
 
 ```
-ST-Link v2    PY32F0xx
----------     --------
-SWDIO    <--> PA13
-SWDCK    <--> PA14  
-GND      <--> GND
-3V3      <--> VCC
-RST      <--> NRST (optional)
+Multiprotocol      PY32F0xx
+-------------      --------
+SWDIO        <--> PA13
+SWDCK        <--> PA14  
+GND          <--> GND
+3V3          <--> VCC
+RST          <--> NRST (optional)
 ```
 
 ## Package-Specific Pin Configurations
@@ -51,13 +51,12 @@ RST      <--> NRST (optional)
 The DFN8 is a compact 8-pin package commonly used for space-constrained applications.
 
 ```
-DFN8 Pinout (Top View):
-    PB5  1 ┌─────┐ 8  VCC
-    GND  2 │     │ 7  PA2  
-    PA0  3 │     │ 6  PA1
-    NRST 4 └─────┘ 5  PA14/SWDCK
+            DFN8 Pinout (Top View):
+               VCC  1 ┌─────┐ 8  PB5/LED
+               PA0  2 │     │ 7  PA14-SWDCK/PB6
+               PA1  3 │     │ 6  PA13-SWDIO/PA10
+               PA2  4 └─────┘ 5  PB0/PF2-NRST
 
-Bottom: PA13/SWDIO (exposed pad)
 ```
 
 #### Verified DFN8 Configuration
@@ -73,21 +72,6 @@ This configuration is tested and working on PY32F003I DFN8:
 | PA13| SWDIO          | Programming |
 | PA14| SWDCK          | Programming |
 
-### TSSOP20 Package
-
-```
-TSSOP20 Pinout:
-PB5/I2C_SMBA   1  ┌─────┐ 20  VCC
-PB6/I2C_SCL    2  │     │ 19  PA7/SPI_MOSI
-PB7/I2C_SDA    3  │     │ 18  PA6/SPI_MISO  
-NRST           4  │     │ 17  PA5/SPI_SCK
-VSSA           5  │     │ 16  PA4
-VDDA           6  │     │ 15  PA3
-PA0/USART2_TX  7  │     │ 14  PA2/ADC_IN2
-PA1/USART2_RX  8  │     │ 13  VSS
-PA2/ADC_IN2    9  │     │ 12  VDD  
-VSS           10  └─────┘ 11  PA14/SWDCK/USART2_TX
-```
 
 ## Power Supply Considerations
 

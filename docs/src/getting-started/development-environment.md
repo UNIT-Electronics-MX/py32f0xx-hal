@@ -7,7 +7,7 @@ This guide covers setting up your development environment for PY32F0xx embedded 
 ### Required Software
 
 1. **Rust Toolchain** (1.70.0 or later)
-2. **Python 3.7+** (for PyOCD flashing tool)
+2. **Python 3.7+** (flashing tool)
 3. **Git** (for version control)
 4. **Text Editor/IDE** (VS Code recommended)
 
@@ -93,7 +93,7 @@ cd py32f0xx-hal
 
 ```bash
 # Run the provided setup script
-./setup.sh
+./scripts/setup.sh
 ```
 
 This script will:
@@ -220,8 +220,11 @@ make build EXAMPLE=blinky MCU_TYPE=py32f003xx4
 ### Flash and Test
 
 ```bash
-# Flash to device
-make flash EXAMPLE=blinky MCU_TYPE=py32f003xx4
+# Simple way - flash blinky (uses PY32F003x4 by default)
+make flash-blinky
+
+# Or explicit way
+make flash EXAMPLE=blinky MCU_TYPE=PY32F003x4
 
 # LED should start blinking
 ```
@@ -240,15 +243,21 @@ make flash EXAMPLE=blinky MCU_TYPE=py32f003xx4
 
 ```
 py32f0xx-hal/
+├── .vscode/             # VS Code configuration
+│   ├── settings.json    # Rust Analyzer settings
+│   ├── launch.json      # Debug configuration
+│   ├── tasks.json       # Build tasks
+│   └── extensions.json  # Recommended extensions
 ├── src/                 # HAL source code
 ├── examples/            # Example applications
 ├── docs/                # This documentation
 ├── tools/               # Development tools
+├── scripts/             # Build and setup scripts
 ├── Cargo.toml           # Rust dependencies
 ├── memory.x             # Memory layout
-├── Makefile            # Build automation
-└── setup.sh            # Environment setup
+└── Makefile            # Build automation
 ```
+
 
 ### Creating New Examples
 
@@ -347,6 +356,78 @@ Once your environment is set up:
 2. **Explore [Examples](../examples/blinky.md)** to learn the HAL
 3. **Read [Hardware Setup](./hardware-setup.md)** for wiring details
 4. **Check [Peripheral Documentation](../peripherals/gpio.md)** for advanced usage
+
+## VS Code Configuration
+
+The project includes pre-configured VS Code settings for optimal Rust development:
+
+### Recommended Extensions
+
+Install these VS Code extensions for the best development experience:
+
+```bash
+# Core Rust development
+code --install-extension rust-lang.rust-analyzer
+code --install-extension ms-vscode.cpptools
+
+# Debugging support
+code --install-extension marus25.cortex-debug
+```
+
+### Settings Configuration
+
+The project includes `.vscode/settings.json` with optimized settings:
+
+```json
+{
+    "rust-analyzer.cargo.target": "thumbv6m-none-eabi",
+    "rust-analyzer.checkOnSave.allTargets": false,
+    "rust-analyzer.cargo.allFeatures": false,
+    "rust-analyzer.cargo.features": ["py32f003xx4"]
+}
+```
+
+This configuration:
+- **Sets the correct target** for embedded development
+- **Optimizes analysis** for faster performance
+- **Uses the right features** for your MCU
+
+### Debug Configuration
+
+The project includes `.vscode/launch.json` for debugging:
+
+```json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug PY32F0xx",
+            "type": "cortex-debug",
+            "request": "launch",
+            "servertype": "pyocd",
+            "cwd": "${workspaceRoot}",
+            "executable": "target/thumbv6m-none-eabi/debug/examples/blinky",
+            "device": "py32f003x4",
+            "svdFile": "tools/Misc/SVD/py32f003xx.svd",
+            "configFiles": ["tools/Misc/pyocd.yaml"],
+            "targetId": "py32f003x4",
+            "runToEntryPoint": "main",
+            "showDevDebugOutput": "raw"
+        }
+    ]
+}
+```
+
+### Using VS Code Debugging
+
+1. **Build debug version**: `make debug-blinky`
+2. **Set breakpoints** in your code
+3. **Press F5** to start debugging
+4. **Use debug controls**: F10 (step over), F11 (step into)
+
+For complete debugging guide, see [VS Code Debugging](../tools/vscode-debugging.md).
+
+For detailed VS Code configuration, see [VS Code Configuration](../tools/vscode-configuration.md).
 
 ## Performance Tips
 

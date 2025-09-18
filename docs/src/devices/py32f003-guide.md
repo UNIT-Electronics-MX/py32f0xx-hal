@@ -42,15 +42,16 @@ The PY32F003 is a low-cost ARM Cortex-M0+ microcontroller particularly well-suit
 
 **Ultra-compact 2x3mm package** - ideal for space-constrained designs.
 
-```
-Pin Configuration (Top View):
-    PB5  1 ┌─────┐ 8  VCC
-    VSS  2 │     │ 7  PA2  
-    PA0  3 │     │ 6  PA1
-    NRST 4 └─────┘ 5  PA14
 
-Bottom Pad: PA13 (SWDIO)
 ```
+            DFN8 Pinout (Top View):
+               VCC  1 ┌─────┐ 8  PB5/LED
+               PA0  2 │     │ 7  PA14-SWDCK/PB6
+               PA1  3 │     │ 6  PA13-SWDIO/PA10
+               PA2  4 └─────┘ 5  PB0/PF2-NRST
+
+```
+
 
 **Available Pins:**
 - **Power**: VCC, VSS
@@ -68,23 +69,6 @@ let adc_pin = gpioa.pa2.into_analog();    // ADC input
 let led = gpiob.pb5.into_push_pull_output(); // Debug LED
 ```
 
-### TSSOP20 Package
-
-**More pins available** - suitable for applications needing more I/O.
-
-```
-Pin Configuration:
-PB5    1  ┌─────┐ 20  VCC
-PB6    2  │     │ 19  PA7
-PB7    3  │     │ 18  PA6
-NRST   4  │     │ 17  PA5
-VSSA   5  │     │ 16  PA4
-VDDA   6  │     │ 15  PA3
-PA0    7  │     │ 14  PA2
-PA1    8  │     │ 13  VSS
-VSS    9  │     │ 12  VDD
-PA13  10  └─────┘ 11  PA14
-```
 
 **Additional Features:**
 - More GPIO pins available

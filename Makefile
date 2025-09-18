@@ -252,22 +252,34 @@ show-features:
 # Help target
 .PHONY: help
 help:
-	@echo "PY32F0xx-HAL Makefile Help"
-	@echo "=========================="
 	@echo ""
-	@echo "Build Types:"
-	@echo "  BUILD_TYPE=rust    Build Rust HAL examples (default)"
-	@echo "  BUILD_TYPE=c       Build traditional C projects"
+	@echo "PY32F0xx-HAL - Quick Commands"
+	@echo "============================="
 	@echo ""
-	@echo "Rust Commands:"
-	@echo "  make               Build current Rust example ($(EXAMPLE))"
-	@echo "  make flash         Flash current Rust example via $(FLASH_PROGRM)"
-	@echo "  make clean         Clean Rust build artifacts"
-	@echo "  make check         Check Rust code without building"
-	@echo "  make clippy        Run Rust linter"
-	@echo "  make size          Show size of built binary"
-	@echo "  make list-examples Show available examples"
-	@echo "  make show-features Show MCU feature mapping"
+	@echo "Quick Examples:"
+	@echo "  make blinky        Build blinky"
+	@echo "  make flash-blinky  Flash blinky"
+	@echo "  make serial_echo   Build serial_echo"
+	@echo "  make flash-serial_echo Flash serial_echo"
+	@echo "  make i2c_find_address Build I2C scanner"
+	@echo "  make flash-i2c_find_address Flash I2C scanner"
+	@echo "  make example=NAME  Build any example"
+	@echo ""
+	@echo "Debug Commands:"
+	@echo "  make debug-blinky      Build blinky for debugging"
+	@echo "  make debug-serial_echo Build serial_echo for debugging"
+	@echo ""
+	@echo "PyOCD Rescue Commands (when PyOCD gets stuck):"
+	@echo "  make flash-no-reset    Flash without reset (avoids timeout)"
+	@echo "  make flash-kill-reset  Kill PyOCD processes and flash"
+	@echo "  make flash-emergency   Emergency flash (kills all + no reset)"
+	@echo ""
+	@echo "More Commands:"
+	@echo "  make clean         Clean build"
+	@echo "  make size          Show binary size"
+	@echo "  make docs          Build documentation"
+	@echo "  make list-examples List all examples"
+	@echo "  make full-help     Show complete help"
 	@echo ""
 	@echo "Environment Setup:"
 	@echo "  make setup-venv    Setup Python virtual environment with pyocd"
@@ -281,3 +293,177 @@ help:
 	@echo "  make EXAMPLE=blinky                    Build blinky example"
 	@echo "  make EXAMPLE=pwm MCU_TYPE=PY32F030x6   Build PWM for PY32F030"
 	@echo "  make flash EXAMPLE=serial_echo         Flash serial echo example"
+	@echo ""
+	@echo "Shorthand Commands:"
+	@echo "  make blinky                            Build blinky example"
+	@echo "  make flash-blinky                      Flash blinky example"
+	@echo "  make quick-blinky                      Quick flash blinky (PY32F003x4)"
+	@echo "  make example=blinky                    Alternative syntax"
+	@echo "  make example=serial_echo flash         Alternative with flash"
+
+##### Shorthand Commands #####
+
+# Shorthand commands for common examples
+.PHONY: blinky serial_echo serial_adc pwm adc_values i2c_find_address
+blinky:
+	@echo "Building blinky example..."
+	$(MAKE) EXAMPLE=blinky
+
+serial_echo:
+	@echo "Building serial_echo example..."
+	$(MAKE) EXAMPLE=serial_echo
+
+serial_adc:
+	@echo "Building serial_adc example..."
+	$(MAKE) EXAMPLE=serial_adc
+
+pwm:
+	@echo "Building pwm example..."
+	$(MAKE) EXAMPLE=pwm
+
+adc_values:
+	@echo "Building adc_values example..."
+	$(MAKE) EXAMPLE=adc_values
+
+i2c_find_address:
+	@echo "Building i2c_find_address example..."
+	$(MAKE) EXAMPLE=i2c_find_address
+
+# Shorthand flash commands
+.PHONY: flash-blinky flash-serial_echo flash-serial_adc flash-pwm flash-adc_values flash-i2c_find_address
+flash-blinky:
+	@echo "Flashing blinky example..."
+	$(MAKE) flash EXAMPLE=blinky
+
+flash-serial_echo:
+	@echo "Flashing serial_echo example..."
+	$(MAKE) flash EXAMPLE=serial_echo
+
+flash-serial_adc:
+	@echo "Flashing serial_adc example..."
+	$(MAKE) flash EXAMPLE=serial_adc
+
+flash-pwm:
+	@echo "Flashing pwm example..."
+	$(MAKE) flash EXAMPLE=pwm
+
+flash-adc_values:
+	@echo "Flashing adc_values example..."
+	$(MAKE) flash EXAMPLE=adc_values
+
+flash-i2c_find_address:
+	@echo "Flashing i2c_find_address example..."
+	$(MAKE) flash EXAMPLE=i2c_find_address
+
+# PyOCD rescue commands for I2C example
+.PHONY: flash-i2c-no-reset flash-i2c-emergency
+flash-i2c-no-reset:
+	@echo "Flashing I2C scanner without reset (avoids PyOCD timeout)..."
+	$(MAKE) flash-no-reset EXAMPLE=i2c_find_address
+
+flash-i2c-emergency:
+	@echo "Emergency flash I2C scanner (kills processes + no reset)..."
+	$(MAKE) flash-emergency EXAMPLE=i2c_find_address
+
+# Quick commands with automatic MCU type detection
+.PHONY: quick-blinky quick-serial quick-pwm
+quick-blinky:
+	@echo "Quick build and flash: blinky (PY32F003x4)"
+	$(MAKE) flash EXAMPLE=blinky MCU_TYPE=PY32F003x4
+
+quick-serial:
+	@echo "Quick build and flash: serial_echo (PY32F003x4)"
+	$(MAKE) flash EXAMPLE=serial_echo MCU_TYPE=PY32F003x4
+
+quick-pwm:
+	@echo "Quick build and flash: pwm (PY32F003x4)"
+	$(MAKE) flash EXAMPLE=pwm MCU_TYPE=PY32F003x4
+
+# Universal shorthand syntax: make example=NAME [action]
+ifneq ($(example),)
+EXAMPLE := $(example)
+endif
+
+# Support for: make example=blinky flash
+.PHONY: example
+example:
+ifneq ($(example),)
+	@echo "Building example: $(example)"
+	$(MAKE) EXAMPLE=$(example)
+else
+	@echo "Usage: make example=EXAMPLE_NAME [flash]"
+	@echo "Examples: make example=blinky"
+	@echo "         make example=serial_echo flash"
+endif
+
+##### Full Help System #####
+
+.PHONY: full-help
+full-help:
+	@echo ""
+	@echo "PY32F0xx-HAL Complete Build System"
+	@echo "=================================="
+	@echo ""
+	@echo "Variables:"
+	@echo "  BUILD_TYPE      Build configuration (default: release)"
+	@echo "  EXAMPLE         Example to build (required for Rust builds)"
+	@echo "  MCU_TYPE        Target MCU (default: PY32F003x4)"
+	@echo "  PROGRAMMER      Programming interface (default: pyocd)"
+	@echo ""
+	@echo "Available MCU Types:"
+	@echo "  PY32F002Ax5, PY32F002Bx5, PY32F003x4, PY32F003x6, PY32F003x8"
+	@echo "  PY32F030x4, PY32F030x6, PY32F030x7, PY32F030x8, PY32F072xB"
+	@echo ""
+	@echo "Standard Targets:"
+	@echo "  make build         Build the project (default)"
+	@echo "  make flash         Build and flash to target"
+	@echo "  make size          Show binary size information"
+	@echo "  make clean         Clean build artifacts"
+	@echo "  make gdb           Start GDB debugging session"
+	@echo "  make docs          Build documentation with mdBook"
+	@echo "  make list-examples List all available examples"
+	@echo ""
+	@echo "Advanced Usage:"
+	@echo "  make EXAMPLE=blinky MCU_TYPE=PY32F030x6"
+	@echo "  make flash EXAMPLE=serial_echo PROGRAMMER=jlink"
+
+##### Documentation Build #####
+
+.PHONY: docs
+docs:
+	@echo "Building documentation with mdBook..."
+	@if [ -x "./scripts/build-docs.sh" ]; then \
+		./scripts/build-docs.sh; \
+	else \
+		echo "Error: scripts/build-docs.sh not found or not executable"; \
+		echo "Please run: chmod +x scripts/build-docs.sh"; \
+		exit 1; \
+	fi
+
+##### Debug Build Targets #####
+
+.PHONY: debug-build debug-blinky debug-serial_echo debug-pwm debug-adc_values
+debug-build:
+	@echo "Building debug version of $(EXAMPLE)..."
+	@echo "MCU Type: $(MCU_TYPE)"
+	@if [ "$(MCU_TYPE)" = "PY32F003x4" ]; then \
+		echo "Features: py32f003xx4,rt"; \
+		cargo build --target thumbv6m-none-eabi --example $(EXAMPLE) --features py32f003xx4,rt; \
+	else \
+		echo "Features: py32f003,rt"; \
+		cargo build --target thumbv6m-none-eabi --example $(EXAMPLE) --features py32f003,rt; \
+	fi
+	@echo "Debug build complete!"
+	@echo "Binary: target/thumbv6m-none-eabi/debug/examples/$(EXAMPLE)"
+
+debug-blinky:
+	@$(MAKE) debug-build EXAMPLE=blinky
+
+debug-serial_echo:
+	@$(MAKE) debug-build EXAMPLE=serial_echo
+
+debug-pwm:
+	@$(MAKE) debug-build EXAMPLE=pwm
+
+debug-adc_values:
+	@$(MAKE) debug-build EXAMPLE=adc_values

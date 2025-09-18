@@ -1,5 +1,12 @@
 {
-    "rust-analyzer.cargo.features": ["py32f002ax5"],
-    // "rust-analyzer.showUnlinkedFileNotification": false,
-    "rust-analyzer.check.allTargets": false
+    "rust-analyzer.cargo.target": "thumbv6m-none-eabi",
+    "rust-analyzer.checkOnSave.allTargets": false,
+    "rust-analyzer.cargo.allFeatures": false,
+    "rust-analyzer.cargo.features": ["py32f003xx4"],
+    "rust-analyzer.check.allTargets": false,
+    "files.associations": {
+        "*.svd": "xml"
+    },
+    "cortex-debug.variableUseNaturalFormat": true,
+    "cortex-debug.showRTOS": true
 }

@@ -93,8 +93,12 @@ loop {
 # Build the example
 make build EXAMPLE=serial_echo MCU_TYPE=py32f003xx4
 
-# Flash to device
-make flash EXAMPLE=serial_echo MCU_TYPE=py32f003xx4
+```bash
+# Simple way
+make flash-serial_echo
+
+# Traditional way  
+make flash EXAMPLE=serial_echo MCU_TYPE=PY32F003x4
 ```
 
 ### Using Cargo Directly

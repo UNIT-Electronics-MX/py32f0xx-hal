@@ -46,7 +46,7 @@ check_mdbook() {
 build_docs() {
     print_status "Building documentation..."
     
-    cd "$(dirname "$0")/docs"
+    cd "$(dirname "$0")/../docs"
     
     # Clean previous build
     if [ -d "book" ]; then
@@ -67,7 +67,7 @@ serve_docs() {
     print_status "Documentation will be available at: http://localhost:3000"
     print_status "Press Ctrl+C to stop the server"
     
-    cd "$(dirname "$0")/docs"
+    cd "$(dirname "$0")/../docs"
     mdbook serve --open
 }
 
@@ -75,7 +75,7 @@ serve_docs() {
 test_docs() {
     print_status "Testing documentation..."
     
-    cd "$(dirname "$0")/docs"
+    cd "$(dirname "$0")/../docs"
     mdbook test
     
     print_success "Documentation tests passed"
@@ -103,7 +103,7 @@ main() {
             ;;
         "clean")
             print_status "Cleaning documentation build..."
-            rm -rf "$(dirname "$0")/docs/book"
+            rm -rf "$(dirname "$0")/../docs/book"
             print_success "Build directory cleaned"
             ;;
         "help"|"--help")

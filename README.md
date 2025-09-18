@@ -148,16 +148,24 @@ Our documentation includes:
 
 ## Getting Started
 
-The `examples` folder contains several example programs. To compile them, specify the target device as a cargo feature:
+The `examples` folder contains several example programs. Use the simplified Makefile commands:
 
 ```bash
-# For PY32F030 series
-$ cargo build --features=py32f030xx4 --example=blinky
+# Quick commands (uses PY32F003x4 by default)
+$ make blinky           # Build blinky example
+$ make flash-blinky     # Build and flash blinky
+$ make serial_echo      # Build serial echo example
+$ make flash-serial_echo # Build and flash serial echo
 
-# For PY32F003 series  
-$ cargo build --features=py32f003xx4 --example=serial_echo
+# With specific MCU type
+$ make flash EXAMPLE=blinky MCU_TYPE=PY32F003x4
 
-# Build and flash example
+# Alternative syntax
+$ make example=blinky flash
+
+# Get help
+$ make help             # Quick reference
+$ make full-help        # Complete options
 $ make flash EXAMPLE=serial_echo
 ```
 
@@ -210,6 +218,21 @@ Both examples are confirmed working on **PY32F003I DFN8** package at 9600 bps.
 ### Basic Examples
 - **`blinky.rs`** - Simple LED blink example
 - **`adc_values.rs`** - Read ADC values from pins
+
+## Development Tools
+
+This project includes several development tools and configurations:
+
+### Programming & Debugging Tools
+- **PyOCD** (default) - Primary programming interface with excellent PY32F0xx support
+- **OpenOCD** - Alternative programming interface (files in `tools/openocd/`)
+- **J-Link** - Alternative programming interface support
+
+### Build Tools
+- **Makefile** - Simplified build commands (`make blinky`, `make flash-blinky`)
+- **Documentation** - Complete mdBook documentation (`make docs`)
+
+For OpenOCD users, configuration files are available in [`tools/openocd/`](tools/openocd/README.md).
 
 ## Community & Support
 

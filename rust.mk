@@ -10,14 +10,17 @@ else ifeq ($(findstring PY32F002B,$(MCU_TYPE)),PY32F002B)
 else ifeq ($(findstring PY32F003,$(MCU_TYPE)),PY32F003)
     ifeq ($(MCU_TYPE),PY32F003x4)
         RUST_FEATURES = py32f003xx4,rt
+        PYOCD_TARGET = py32f003x4
     else ifeq ($(MCU_TYPE),PY32F003x6)
         RUST_FEATURES = py32f003xx6,rt
+        PYOCD_TARGET = py32f003x6
     else ifeq ($(MCU_TYPE),PY32F003x8)
         RUST_FEATURES = py32f003xx8,rt
+        PYOCD_TARGET = py32f003x8
     else
         RUST_FEATURES = py32f003xx4,rt
+        PYOCD_TARGET = py32f003x4
     endif
-    PYOCD_TARGET = py32f003x4
 else ifeq ($(findstring PY32F030,$(MCU_TYPE)),PY32F030)
     RUST_FEATURES = py32f030,rt
     PYOCD_TARGET = py32f030x8
@@ -26,7 +29,7 @@ else ifeq ($(findstring PY32F072,$(MCU_TYPE)),PY32F072)
     PYOCD_TARGET = py32f072xb
 else
     RUST_FEATURES = py32f003,rt
-    PYOCD_TARGET = py32f003x8
+    PYOCD_TARGET = py32f003x4
 endif
 
 # Build directories and files
@@ -106,6 +109,42 @@ flash-pyocd-system: build
 	@echo "Flashing $(EXAMPLE) using system PyOCD..."
 	@echo "Target: $(PYOCD_TARGET)"
 	cd tools/Misc && $(PYOCD_EXE) flash -t $(PYOCD_TARGET) --config pyocd.yaml ../../$(RUST_HEX)
+
+# Flash without reset (when PyOCD gets stuck)
+.PHONY: flash-no-reset
+flash-no-reset: build
+	@echo "Flashing $(EXAMPLE) using PyOCD WITHOUT reset..."
+	@echo "Target: $(PYOCD_TARGET)"
+	@echo "This avoids the reset timeout issue"
+	cd tools/Misc && $(PWD)/$(PYOCD_VENV) flash -t $(PYOCD_TARGET) --config pyocd.yaml ../../$(RUST_HEX)
+	@echo "Flash complete - NO RESET performed"
+
+# Kill PyOCD processes and flash (when PyOCD gets stuck)
+.PHONY: flash-kill-reset
+flash-kill-reset: build
+	@echo "Killing PyOCD processes and flashing..."
+	@pkill -f pyocd || true
+	@pkill -f gdb-server || true  
+	@sleep 2
+	@echo "Flashing $(EXAMPLE) after killing PyOCD processes..."
+	@echo "Target: $(PYOCD_TARGET)"
+	cd tools/Misc && $(PWD)/$(PYOCD_VENV) flash -t $(PYOCD_TARGET) --config pyocd.yaml ../../$(RUST_HEX)
+	@echo "Flash complete"
+
+# Emergency flash (kills processes, waits, then flashes without reset)
+.PHONY: flash-emergency
+flash-emergency: build
+	@echo "=== EMERGENCY FLASH MODE ==="
+	@echo "Killing all PyOCD and debugging processes..."
+	@pkill -f pyocd || true
+	@pkill -f gdb-server || true
+	@pkill -f openocd || true
+	@pkill -f jlink || true
+	@sleep 3
+	@echo "Flashing $(EXAMPLE) in emergency mode..."
+	@echo "Target: $(PYOCD_TARGET)"
+	cd tools/Misc && $(PWD)/$(PYOCD_VENV) flash -t $(PYOCD_TARGET) --config pyocd.yaml ../../$(RUST_HEX)
+	@echo "=== EMERGENCY FLASH COMPLETE ==="
 
 # Flash using JLink
 .PHONY: flash-jlink

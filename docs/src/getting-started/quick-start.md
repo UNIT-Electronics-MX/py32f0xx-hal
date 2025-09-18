@@ -23,7 +23,7 @@ cd py32f0xx-hal
 Run the setup script to configure your development environment:
 
 ```bash
-./setup.sh
+./scripts/setup.sh
 ```
 
 This script automatically:
@@ -50,31 +50,46 @@ make setup-venv
 
 ## 3. Build Your First Example
 
-Let's build the classic "blinky" LED example:
+Let's build the classic "blinky" LED example using the simplified commands:
 
 ```bash
-# Build the blinky example for PY32F003
-make build EXAMPLE=blinky MCU_TYPE=py32f003xx4
+# Simple way - build blinky (default MCU: PY32F003x4)
+make blinky
+
+# Or specify MCU type explicitly
+make EXAMPLE=blinky MCU_TYPE=PY32F003x4
 ```
 
+**New Simplified Commands:**
+- `make blinky` - Build blinky example
+- `make serial_echo` - Build serial example
+- `make pwm` - Build PWM example
+- `make adc_values` - Build ADC example
+
 Available MCU types:
-- `py32f030xx4` - PY32F030 with 16KB Flash
-- `py32f030xx6` - PY32F030 with 32KB Flash
-- `py32f030xx7` - PY32F030 with 48KB Flash  
-- `py32f030xx8` - PY32F030 with 64KB Flash
-- `py32f003xx4` - PY32F003 with 16KB Flash
-- `py32f003xx6` - PY32F003 with 32KB Flash
-- `py32f003xx8` - PY32F003 with 64KB Flash
-- `py32f002ax5` - PY32F002A with 20KB Flash
-- `py32f002bx5` - PY32F002B with 20KB Flash
+- `PY32F003x4` - PY32F003 with 16KB Flash (default)
+- `PY32F003x6` - PY32F003 with 32KB Flash
+- `PY32F003x8` - PY32F003 with 64KB Flash
+- `PY32F030x4` - PY32F030 with 16KB Flash
+- `PY32F030x6` - PY32F030 with 32KB Flash
+- `PY32F030x7` - PY32F030 with 48KB Flash  
+- `PY32F030x8` - PY32F030 with 64KB Flash
+- `PY32F002Ax5` - PY32F002A with 20KB Flash
+- `PY32F002Bx5` - PY32F002B with 20KB Flash
 
 ## 4. Flash to Your Device
 
 Connect your PY32F0xx board via SWD and flash the firmware:
 
 ```bash
-# Flash the blinky example
-make flash EXAMPLE=blinky MCU_TYPE=py32f003xx4
+# Super simple - build and flash blinky
+make flash-blinky
+
+# Or with explicit MCU type
+make flash EXAMPLE=blinky MCU_TYPE=PY32F003x4
+
+# Alternative syntax
+make example=blinky flash
 ```
 
 ## 5. Verify It Works
@@ -84,16 +99,40 @@ If everything is set up correctly, you should see:
 - No compilation errors
 - Successful flashing messages
 
+## Quick Reference Commands
+
+Get help anytime with:
+
+```bash
+make help          # Show quick command reference
+make full-help     # Show complete help with all options
+```
+
+**Most Used Commands:**
+```bash
+make blinky        # Build blinky
+make flash-blinky  # Build and flash blinky
+make serial_echo   # Build serial example
+make flash-serial_echo # Build and flash serial
+make clean         # Clean build files
+```
+
 ## Next Steps
 
-Now that you have a working setup, explore more examples:
+Now that you have a working setup, explore more examples with the simplified commands:
 
 ```bash
 # Try the serial echo example
-make flash EXAMPLE=serial_echo MCU_TYPE=py32f003xx4
+make flash-serial_echo
 
 # Or the ADC example  
-make flash EXAMPLE=serial_adc MCU_TYPE=py32f003xx4
+make flash EXAMPLE=serial_adc
+
+# PWM example
+make flash-pwm
+
+# List all available examples
+make list-examples
 ```
 
 ## Common Issues

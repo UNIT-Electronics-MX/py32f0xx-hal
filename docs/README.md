@@ -55,11 +55,11 @@ Use the provided script:
 
 ```bash
 # From the project root
-./build-docs.sh
+./scripts/build-docs.sh
 
 # Or make it executable first
-chmod +x build-docs.sh
-./build-docs.sh
+chmod +x scripts/build-docs.sh
+./scripts/build-docs.sh
 ```
 
 ## Documentation Content

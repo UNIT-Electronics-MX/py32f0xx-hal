@@ -45,23 +45,23 @@ screen /dev/ttyACM0 9600
 # Using minicom  
 minicom -D /dev/ttyACM0 -b 9600
 
-# Using PySerial (Python)
-python test_serial.py
 ```
 
 ## Pin Configuration
 
 ### PY32F003I DFN8 Package
 
-```
-DFN8 Pinout (Top View):
-    PB5  1 ┌─────┐ 8  VCC
-    GND  2 │     │ 7  PA2 (ADC)  
-    PA0  3 │     │ 6  PA1 (RX)
-    NRST 4 └─────┘ 5  PA14
 
-Bottom: PA13 (SWDIO)
+
 ```
+            DFN8 Pinout (Top View):
+               VCC  1 ┌─────┐ 8  PB5/LED
+               PA0  2 │     │ 7  PA14-SWDCK/PB6
+               PA1  3 │     │ 6  PA13-SWDIO/PA10
+               PA2  4 └─────┘ 5  PB0/PF2-NRST
+
+```
+
 
 ### Connections
 
@@ -128,7 +128,8 @@ led.set_high().ok(); // LED on for activity
 
 ### Python Test Script
 
-The repository includes `test_serial.py`:
+You can quickly verify serial communication using a Python script, for example, `test_serial.py`:
+
 
 ```python
 import serial
