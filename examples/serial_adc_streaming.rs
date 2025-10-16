@@ -62,13 +62,15 @@ fn main() -> ! {
     let mut serial = p.USART2.serial((tx, rx), 9_600.bps(), &rcc.clocks);
     
     // Startup messages
-    serial.write_str("=== SERIAL ADC - PY32F003I DFN8 ===\r\n").ok();
+    serial.write_str("=== SERIAL ADC STREAMING - PY32F003I DFN8 ===\r\n").ok();
     serial.write_str("USART2: PA0=TX(AF9), PA1=RX(AF9) @ 9600 bps\r\n").ok();
     serial.write_str("ADC: PA2 as analog input [PULL-DOWN]\r\n").ok();
     serial.write_str("Debug: PB5 LED\r\n").ok();
     serial.write_str("Clock: 24MHz\r\n").ok();
     serial.write_str("Commands:\r\n").ok();
     serial.write_str("  'r' = read ADC once\r\n").ok();
+    serial.write_str("  's' = streaming mode (send ADC every 10ms)\r\n").ok();
+    serial.write_str("  'q' = stop streaming\r\n").ok();
     serial.write_str("  'h' = help\r\n").ok();
     
     // 3 INITIALIZATION BLINKS
@@ -97,6 +99,9 @@ fn main() -> ! {
     serial.write_str("=== System Ready! ===\r\n").ok();
     serial.write_str("Type 'h' for help\r\n").ok();
 
+    let mut streaming = false;
+    let mut stream_counter = 0u32;
+
     loop {
         // Indicate waiting for data (debug pin LOW)
         debug_pin.set_low();
@@ -121,10 +126,23 @@ fn main() -> ! {
                         write_u32(&mut serial, voltage_mv);
                         serial.write_str("mV) [pull-down]\r\n").ok();
                     },
+                    b's' | b'S' => {
+                        // Start streaming
+                        streaming = true;
+                        stream_counter = 0;
+                        serial.write_str("ADC streaming started (10ms intervals)\r\n").ok();
+                    },
+                    b'q' | b'Q' => {
+                        // Stop streaming
+                        streaming = false;
+                        serial.write_str("ADC streaming stopped\r\n").ok();
+                    },
                     b'h' | b'H' => {
                         // Help
                         serial.write_str("\r\n=== HELP ===\r\n").ok();
                         serial.write_str("r = Read ADC once\r\n").ok();
+                        serial.write_str("s = Streaming every 10ms\r\n").ok();
+                        serial.write_str("q = Stop streaming\r\n").ok();
                         serial.write_str("h = This help\r\n").ok();
                         serial.write_str("ADC: PA2 (0-3.3V -> 0-4095) [PULL-DOWN]\r\n").ok();
                         serial.write_str("=============\r\n").ok();
@@ -150,6 +168,30 @@ fn main() -> ! {
                 for _ in 0..60_000 {  // ~50ms error blink
                     cortex_m::asm::nop();
                 }
+            }
+        }
+
+        // ADC streaming if enabled
+        if streaming {
+            stream_counter += 1;
+            if stream_counter >= 1_200 {  // ~10ms @ 24MHz with loop overhead
+                stream_counter = 0;
+                
+                let adc_value: u16 = adc.read(&mut adc_pin).unwrap_or(0);
+                let voltage_mv = (adc_value as u32 * 3300) / 4096;
+                
+                serial.write_str("ADC: ").ok();
+                write_u16(&mut serial, adc_value);
+                serial.write_str(" (").ok();
+                write_u32(&mut serial, voltage_mv);
+                serial.write_str("mV) [pd]\r\n").ok();
+                
+                // Pulse LED to indicate reading
+                debug_pin.set_high();
+                for _ in 0..10_000 {  // ~20ms pulse
+                    cortex_m::asm::nop();
+                }
+                debug_pin.set_low();
             }
         }
     }
