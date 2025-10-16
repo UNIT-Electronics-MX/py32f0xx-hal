@@ -54,8 +54,10 @@ jobs:
         
     - name: Install mdBook
       run: |
-        curl -sSL https://github.com/rust-lang/mdBook/releases/download/v0.4.37/mdbook-v0.4.37-x86_64-unknown-linux-gnu.tar.gz | tar -xz
+        curl -sSL https://github.com/rust-lang/mdBook/releases/download/v0.4.40/mdbook-v0.4.40-x86_64-unknown-linux-gnu.tar.gz | tar -xz
         echo "$(pwd)" >> $GITHUB_PATH
+        echo "mdBook version:"
+        ./mdbook --version
         
     - name: Install dependencies
       run: |
@@ -72,11 +74,17 @@ jobs:
     - name: Build documentation book
       run: |
         cd docs
+        echo "Building mdBook documentation..."
         mdbook build
+        echo "mdBook build completed"
+        ls -la book/
         
     - name: Generate Rust docs
       run: |
+        echo "Generating Rust documentation..."
         cargo doc --no-deps --features py32f030xx4 --target thumbv6m-none-eabi
+        echo "Rust docs generated"
+        ls -la target/thumbv6m-none-eabi/doc/
         
     - name: Prepare GitHub Pages content
       run: |
@@ -106,6 +114,11 @@ jobs:
         
         # Add .nojekyll to disable Jekyll processing
         touch _site/.nojekyll
+        
+        echo "Final _site directory structure:"
+        ls -la _site/
+        echo "Main pages:"
+        ls -la _site/ | head -10
         
     - name: Upload Pages artifact
       uses: actions/upload-pages-artifact@v3
